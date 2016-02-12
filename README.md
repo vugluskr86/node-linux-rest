@@ -7,5 +7,4 @@ linux system monitoring, http rest api
 - Config
 - Static Web
 - Integration https://d3js.org/ ( https://github.com/AdRoll/backbone.d3 )
-- 
 
