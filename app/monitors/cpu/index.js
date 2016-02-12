@@ -1,27 +1,30 @@
 "use strict";
 
-var os = require('os'),
-    Sequelize = require('sequelize');
+var os = require('os');
 
 const CPU_VALUES = {
     NUM_OF_CPU: "NUM_OF_CPU",
-    CPU_INFO: "CPU_INFO"
+    CPU_INFO: "CPU_INFO",
+    CPU_OVERAGE: "CPU_OVERAGE"
 };
 
 const DB_CONFIG = {
     NUM_OF_CPU:
     {
-        value:Sequelize.INTEGER
+        value: 'Integer'
     },
     CPU_INFO:
     {
-        model: Sequelize.TEXT,
-        speed: Sequelize.INTEGER,
-        user: Sequelize.INTEGER,
-        nice: Sequelize.INTEGER,
-        sys: Sequelize.INTEGER,
-        idle: Sequelize.INTEGER,
-        irq: Sequelize.INTEGER
+        model: 'Text',
+        speed: 'Integer'
+    },
+    CPU_OVERAGE:
+    {
+        user: 'Integer',
+        nice: 'Integer',
+        sys:  'Integer',
+        idle: 'Integer',
+        irq:  'Integer'
     }
 };
 
@@ -38,7 +41,6 @@ function CpuMonitoring()
     this.fetchCpuInfo = function()
     {
         this.lastCpuInfo = os.cpus();
-
         this.cpuCount = this.lastCpuInfo.length;
     };
 
@@ -79,7 +81,21 @@ CpuMonitoring.prototype.getValue = function( valueName )
             {
                 return {
                     model: value.model,
-                    speed: value.speed,
+                    speed: value.speed
+                };
+            });
+        }
+        case SW.CPU_OVERAGE:
+        {
+            var cpuInfo = this.getCpuInfo(),
+                index = 0;
+
+            return cpuInfo.map(function(value)
+            {
+                index++;
+
+                return {
+                    index: index,
                     user: value.times.user,
                     nice: value.times.nice,
                     sys: value.times.sys,

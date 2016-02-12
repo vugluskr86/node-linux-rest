@@ -13,18 +13,14 @@
   {
     "cpu" :
     {
-      "NUM_OF_CPU":
-      {
-        "timeout": 0
-      },
-      "CPU_INFO":
-      {
-        "timeout": 0
-      }
+      "NUM_OF_CPU": { "timeout": 0 },
+      "CPU_INFO": { "timeout": 0 },
+      "CPU_OVERAGE": { "timeout": 1000 }
     },
     "memory":
     {
-
+      "FREE_MEM": { "timeout": 1000 },
+      "TOTAL_MEM": { "timeout": 0 }
     },
     "network":
     {
@@ -36,7 +32,15 @@
     },
     "system":
     {
-
+      "HOST_NAME": { "timeout": 0 },
+      "HOME_DIR": { "timeout": 0 },
+      "ENDIANNESS": { "timeout": 0 },
+      "ARCH": { "timeout": 0 },
+      "PLATFORM": { "timeout": 0 },
+      "RELEASE": { "timeout": 0 },
+      "TMPDIR": { "timeout": 0 },
+      "TYPE": { "timeout": 0 },
+      "UPTIME": { "timeout": 0 }
     }
   }
 }

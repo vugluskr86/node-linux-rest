@@ -10,16 +10,13 @@
   "license": "MIT",
   "dependencies": {
     "async": "^1.5.2",
+    "backbone": "^1.2.3",
+    "backbone-orm": "^0.7.14",
+    "backbone-rest": "^0.7.2",
+    "backbone-sql": "^0.6.5",
     "body-parser": "^1.15.0",
-    "epilogue": "^0.6.5",
     "express": "^4.13.4",
-    "lokijs": "^1.3.11",
     "nconf": "^0.8.4",
-    "new-sequelize-restful": "0.0.20",
-    "path-to-regexp": "^1.2.1",
-    "regex-router": "^1.1.1",
-    "sequelize": "^3.19.2",
-    "sequelize-restful": "^0.4.3",
     "sqlite3": "^3.1.1",
     "underscore": "^1.8.3"
   }

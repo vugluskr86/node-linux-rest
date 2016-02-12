@@ -3,10 +3,10 @@
 var config    = require('config'),
     assert    = require('assert'),
     path      = require('path'),
-    express   = require('express'),
-    Sequelize = require('sequelize'),
-    restful   = require('new-sequelize-restful'),
-    app       = express();
+    app       = require('express')(),
+    BackboneSQL   = require('backbone-sql').sync,
+    Backbone  = require('backbone'),
+    RestController = require('backbone-rest');
 
 /**
  * Утилита для мониторинга
@@ -18,59 +18,56 @@ function MonitoringApp()
     this.modules = {};
     this.watchs  = {};
     this.moduleStorages  = {};
+    this.restControllers = {};
 
-    this.dbConfig   = config.get("database");
+    //this.dbConfig   = config.get("database");
     this.httpConfig = config.get("http");
-
-    this.db = new Sequelize('sqlite', '', '', {
-        host: 'localhost',
-        dialect : 'sqlite',
-        storage: 'database.sqlite'
-    });
-
 
     this.saveWatch = function(timestamp, moduleName, valueName, values)
     {
         var _module = this.modules[moduleName],
             _schema = _module.DB[valueName],
-            _valueStorageName = moduleName + '_' + valueName,
-            self = this;
+            _valueStorageName = moduleName + '_' + valueName;
+
+        console.log(timestamp + ":" + moduleName + "_" + valueName);
 
         if( this.moduleStorages[_valueStorageName] == undefined )
         {
-            this.moduleStorages[_valueStorageName] = this.db.define(_valueStorageName, _schema, {
-                freezeTableName: true
+            var _model = Backbone.Model.extend({
+                urlRoot: 'sqlite://db.sqlite/' + _valueStorageName,
+                schema : _schema
             });
+
+            _model.prototype.sync = BackboneSQL(_model);
+
+            var db = _model.db().ensureSchema(console.log);
+
+            this.moduleStorages[_valueStorageName] = _model;
+            this.restControllers[_valueStorageName] = new RestController(app, { model_type : _model, route : '/' + _valueStorageName });
         }
 
         if( Array.isArray(values) )
         {
-            this.db.sync({force: true}).then(function()
+            values.forEach(function(value)
             {
-                values.forEach(function(_value)
-                {
-                    self.moduleStorages[_valueStorageName].create(_value);
-                });
-            });
+                var newValue = new this.moduleStorages[_valueStorageName](value);
+                newValue.save();
+            }.bind(this))
         }
         else
         {
-            this.db.sync({force: true}).then(function()
-            {
-                self.moduleStorages[_valueStorageName].create(values);
-            });
+            var newValue = new this.moduleStorages[_valueStorageName](values);
+            newValue.save();
         }
     };
 
+
     this.startRest = function()
     {
-        app.use(require('body-parser').json({
-            type: 'application/*'
-        }));
-
-        app.all(/\/api\//, (new restful(this.db)).route());
+        app.use(require('body-parser').json({}));
         app.listen(this.httpConfig["port"], this.httpConfig["host"]);
     };
+
 }
 
 /**
