@@ -1,2 +1,2 @@
-var app = require('app');
+var app = require('daemon');
 app.start();

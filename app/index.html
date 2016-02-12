@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>123</title>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/backbone/backbone-min.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <script src="bower_components/backbone.d3/dist/backbone.d3.js"></script>
+
+    <link rel="stylesheet" href="bower_components/backbone.d3/dist/backbone.d3.css">
+
+    <style>
+        body {
+            font: 14px sans-serif;
+            margin: 15px 20px;
+        }
+        h2 {
+            margin: 0 0 5px;
+        }
+        .bbd3 {
+            height: 200px;
+            width: 850px;
+            margin: 0 0 20px;
+        }
+        .bbd3-funnel .conv-rate {
+            fill: #666;
+        }
+        .bbd3-funnel .conv-rate-wrapper text {
+            fill: white;
+            text-anchor: middle;
+        }
+    </style>
+    <script>
+        $(function() {
+            var data = new Backbone.Collection([
+                { x: "A", y: 105 },
+                { x: "B", y: 67  },
+                { x: "C", y: 42  },
+                { x: "D", y: 33  },
+                { x: "E", y: 10  }
+            ]);
+            var bar = new Backbone.D3.Bar({
+                collection: data
+            });
+            $("#test-bar").append(bar.el);
+            bar.render();
+        });
+    </script>
+</head>
+<body>
+<h2>Backbone.D3.Bar</h2>
+<div id="test-bar" class="chart"></div>
+
+</body>
+</html>

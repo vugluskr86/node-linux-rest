@@ -1,0 +1,27 @@
+{
+  "name": "app",
+  "homepage": "https://github.com/vugluskr86/node-linux-rest",
+  "authors": [
+    "vugluskr <vugluskr@onalone.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone.d3": "https://github.com/dharma-guardian/backbone.d3.git",
+    "jquery": "~2.2.0",
+    "d3": "~3.5.15",
+    "bootstrap": "~3.3.6",
+    "font-awesome": "fontawesome#~4.5.0",
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.3"
+  }
+}

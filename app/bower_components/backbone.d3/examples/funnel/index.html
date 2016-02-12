@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.js"></script>
+    <script src="../../dist/backbone.d3.js"></script>
+    <script src="backbone.d3.funnel.js"></script>
+
+    <link rel="stylesheet" href="../../dist/backbone.d3.css">
+
+    <style>
+        body {
+            font: 14px sans-serif;
+            margin: 15px 20px;
+        }
+        h2 {
+            margin: 0 0 5px;
+        }
+        .bbd3 {
+            height: 200px;
+            width: 850px;
+            margin: 0 0 20px;
+        }
+        .bbd3-funnel .conv-rate {
+            fill: #666;
+        }
+        .bbd3-funnel .conv-rate-wrapper text {
+            fill: white;
+            text-anchor: middle;
+        }
+    </style>
+
+    <script>
+    $(function() {
+
+        var data = new Backbone.Collection([
+            { x: "A", y: 105 },
+            { x: "B", y: 67  },
+            { x: "C", y: 42  },
+            { x: "D", y: 33  },
+            { x: "E", y: 10  }
+        ]);
+
+        var bar = new Backbone.D3.Bar({
+            collection: data
+        });
+        $("#test-bar").append(bar.el);
+        bar.render();
+
+        // var funnel = new Backbone.D3.Funnel({
+        //     collection: data
+        // });
+        // $("#test-funnel").append(funnel.el);
+        // funnel.render();
+
+    });
+    </script>
+</head>
+
+<body>
+
+    <h2>Backbone.D3.Bar</h2>
+    <div id="test-bar" class="chart"></div>
+
+    <h2>Backbone.D3.Funnel (extends Backbone.D3.Bar)</h2>
+    <div id="test-funnel" class="chart"></div>
+
+</body>
+
+</html>
