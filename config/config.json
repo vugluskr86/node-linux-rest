@@ -1,0 +1,42 @@
+{
+  "http":
+  {
+    "host" : "127.0.0.1",
+    "port" : 3301
+  },
+  "database":
+  {
+    "file" : "monitoring",
+    "saveDbTimeout" : 1000
+  },
+  "modules":
+  {
+    "cpu" :
+    {
+      "NUM_OF_CPU":
+      {
+        "timeout": 0
+      },
+      "CPU_INFO":
+      {
+        "timeout": 0
+      }
+    },
+    "memory":
+    {
+
+    },
+    "network":
+    {
+
+    },
+    "process":
+    {
+
+    },
+    "system":
+    {
+
+    }
+  }
+}
